@@ -11,11 +11,11 @@ import (
 
 // Estrutura de um colaborador
 type Colaborador struct {
-	cpfPessoa            string `json:"cpfPessoa"`
-	nomeCompletoPessoa   string `json:"nomeCompletoPessoa"`
-	dataNascimentoPessoa string `json:"dataNascimentoPessoa"`
-	sexoPessoa           string `json:"sexoPessoa"`
-	nomeCargo            string `json:"nomeCargo"`
+	CpfPessoa            string `json:"cpfPessoa"`
+	NomeCompletoPessoa   string `json:"nomeCompletoPessoa"`
+	DataNascimentoPessoa string `json:"dataNascimentoPessoa"`
+	SexoPessoa           string `json:"sexoPessoa"`
+	NomeCargo            string `json:"nomeCargo"`
 }
 
 // Um slice de colaboradores
@@ -54,7 +54,7 @@ func GetColaboradorByCpf(w http.ResponseWriter, r *http.Request) {
 	json.Unmarshal(data, &colaboradores)
 
 	for _, v := range colaboradores.Colaboradores {
-		if v.cpfPessoa == vars["cpfPessoa"] {
+		if v.CpfPessoa == vars["cpfPessoa"] {
 			colaborador, _ := json.Marshal(v)
 			w.Write([]byte(colaborador))
 		}
