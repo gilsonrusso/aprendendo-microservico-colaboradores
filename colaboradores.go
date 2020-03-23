@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -18,9 +19,9 @@ type Colaborador struct {
 }
 
 // Um slice de colaboradores
-// type Colaboradores struct {
-// 	Colaboradores []Colaborador
-// }
+type Colaboradores struct {
+	Colaboradores []Colaborador
+}
 
 func loadColaboradores() []byte {
 	// Fazendo a abertura do arquivo json
@@ -45,15 +46,24 @@ func ListColaboradores(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(colaboradores))
 }
 
-// getColaboradorByCpf(w http.ResponseWriter, r *http.Request) {
-// 	vars := mux.Vars(r)
-// 	data := loadColaboradores()
+func GetColaboradorByCpf(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	data := loadColaboradores()
 
-// 	var colaboradores
-// }
+	var colaboradores Colaboradores
+	json.Unmarshal(data, &colaboradores)
+
+	for _, v := range colaboradores.Colaboradores {
+		if v.cpfPessoa == vars["cpfPessoa"] {
+			colaborador, _ := json.Marshal(v)
+			w.Write([]byte(colaborador))
+		}
+	}
+}
 
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/colaboradores", ListColaboradores)
+	r.HandleFunc("/colaboradores/{cpfPessoa}", GetColaboradorByCpf)
 	http.ListenAndServe(":8081", r)
 }
