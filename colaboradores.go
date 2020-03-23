@@ -1,7 +1,6 @@
 package main
 
 import (
-	// "io/ioutil"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -10,13 +9,13 @@ import (
 )
 
 // Estrutura de um colaborador
-// type Colaborador struct {
-// 	cpfPessoa            string `json:"cpfPessoa"`
-// 	nomeCompletoPessoa   string `json:"nomeCompletoPessoa"`
-// 	dataNascimentoPessoa string `json:"dataNascimentoPessoa"`
-// 	sexoPessoa           string `json:"sexoPessoa"`
-// 	nomeCargo            string `json:"nomeCargo"`
-// }
+type Colaborador struct {
+	cpfPessoa            string `json:"cpfPessoa"`
+	nomeCompletoPessoa   string `json:"nomeCompletoPessoa"`
+	dataNascimentoPessoa string `json:"dataNascimentoPessoa"`
+	sexoPessoa           string `json:"sexoPessoa"`
+	nomeCargo            string `json:"nomeCargo"`
+}
 
 // Um slice de colaboradores
 // type Colaboradores struct {
