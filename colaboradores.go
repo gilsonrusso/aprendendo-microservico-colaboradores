@@ -42,11 +42,13 @@ func loadColaboradores() []byte {
 }
 
 func ListColaboradores(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	colaboradores := loadColaboradores()
 	w.Write([]byte(colaboradores))
 }
 
 func GetColaboradorByCpf(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	vars := mux.Vars(r)
 	data := loadColaboradores()
 
@@ -59,6 +61,10 @@ func GetColaboradorByCpf(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte(colaborador))
 		}
 	}
+}
+
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }
 
 func main() {
